@@ -1,73 +1,55 @@
 {
-  "name": "office-website",
-  "outputDirectory": "./out",
   "headers": [
     {
-      "source": "/x2t/x2t.wasm",
+      "source": "/*",
       "headers": [
         {
-          "key": "Content-Encoding",
-          "value": "br"
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow, noarchive, nosnippet"
         }
       ]
+    }
+  ],
+  "caches": [
+    {
+      "source": "/sitemap.xml",
+      "cacheTtl": 0
     },
     {
-      "source": "/x2t-*",
-      "headers": [
-        {
-          "key": "Content-Encoding",
-          "value": "br"
-        },
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=31556952, immutable"
-        }
-      ]
+      "source": "/*.js",
+      "cacheTtl": 864000
     },
     {
-      "source": "/v9.3.0.24-*",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=31556952, immutable"
-        }
-      ]
+      "source": "/*.css",
+      "cacheTtl": 864000
     },
     {
-      "source": "/_next/static/*",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=31556952, immutable"
-        }
-      ]
+      "source": "/*.woff2",
+      "cacheTtl": 864000
     },
     {
-      "source": "/*.txt",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=600"
-        }
-      ]
+      "source": "/*.woff",
+      "cacheTtl": 864000
     },
     {
-      "source": "/*.json",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=600"
-        }
-      ]
+      "source": "/*.ttf",
+      "cacheTtl": 864000
     },
     {
-      "source": "/files/*",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=86400"
-        }
-      ]
+      "source": "/*.otf",
+      "cacheTtl": 864000
+    },
+    {
+      "source": "/*.png",
+      "cacheTtl": 864000
+    },
+    {
+      "source": "/*.webp",
+      "cacheTtl": 864000
+    },
+    {
+      "source": "/*.svg",
+      "cacheTtl": 864000
     }
   ]
 }
