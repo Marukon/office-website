@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import Image from "next/image";
 import {
   Search,
   Files,
@@ -14,31 +15,24 @@ import { cn } from "@/lib/utils";
 import { useRouter } from "next/navigation";
 import { useAppStore } from "@/store";
 
-interface Template {
-  name: string;
-  filename: string;
-  preview: string;
-  type: "pptx" | "docx" | "xlsx";
-  category: string;
-}
+import type { Template } from "@/utils/templates";
+import { usePageTitle } from "@/hooks/use-page-title";
 
-export function TemplateView() {
+export function TemplateView({
+  initialTemplates,
+}: {
+  initialTemplates: Template[];
+}) {
   const t = useExtracted();
+  usePageTitle(t("Free Office Templates — Word, Excel & PowerPoint | ZIZIYI Office"));
   const [searchQuery, setSearchQuery] = useState("");
   const [activeType, setActiveType] = useState("All");
   const [activeCategory, setActiveCategory] = useState("All");
-  const [templates, setTemplates] = useState<Template[]>([]);
   const [loadingTemplate, setLoadingTemplate] = useState<string | null>(null);
 
+  const templates = initialTemplates;
   const router = useRouter();
   const server = useAppStore((state) => state.server);
-
-  useEffect(() => {
-    fetch("/files/templates.json")
-      .then((res) => res.json())
-      .then((data) => setTemplates(data))
-      .catch((err) => console.error("Failed to load templates:", err));
-  }, []);
 
   const handleTemplateClick = async (tpl: Template) => {
     if (loadingTemplate) return;
@@ -170,10 +164,12 @@ export function TemplateView() {
                 className="flex flex-col gap-4 group text-left focus:outline-none"
               >
                 <div className="aspect-video rounded-2xl border border-border bg-card group-hover:border-primary/50 group-hover:shadow-xl transition-all relative overflow-hidden flex flex-col items-center justify-center">
-                  <img
+                  <Image
+                    width={480}
+                    height={270}
                     src={`/files/${encodeURIComponent(tpl.preview)}`}
                     alt={tpl.name}
-                    className="w-full h-full object-cover object-top group-hover:scale-110 transition-transform duration-700 ease-out"
+                    className="w-full min-h-full h-auto object-cover object-top group-hover:scale-110 transition-transform duration-700 ease-out"
                   />
 
                   {loadingTemplate === tpl.name && (
